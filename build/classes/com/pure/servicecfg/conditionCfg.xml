@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+   <!-- 根据定制条件查询主体 -->
+   <condition name="getEntitiesPageBySelfDefine">
+		<filed name="主体名称" columnName="F_ENTITY_NAME" dataType="String"></filed>
+		<filed name="主体类型" columnName="F_ENTITY_TYPE" dataType="String"></filed>
+		<filed name="许可编号" columnName="F_LIC_NUM" dataType="String"></filed>
+		<filed name="法人代表" columnName="F_LEGAL_PERSON" dataType="String"></filed>
+		<filed name="区域" columnName="F_GOVERN_ORG" dataType="String"></filed>
+		<filed name="监管所" columnName="F_STATION" dataType="String"></filed>
+		<filed name="信用等级" columnName="F_SUPERVISE_LEVLE" dataType="String"></filed>
+		<filed name="生产经营范围" columnName="F_PRODUCE_SCOPE" dataType="String"></filed>
+	</condition>
+</configuration>

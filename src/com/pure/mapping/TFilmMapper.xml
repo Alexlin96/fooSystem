@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pure.dao.TFilmMapper" >
+  <resultMap id="BaseResultMap" type="com.pure.db.TFilm" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="filmname" property="filmname" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="screenings" property="screenings" jdbcType="VARCHAR" />
+    <result column="studio" property="studio" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="pic_src" property="picSrc" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="VARCHAR" />
+    <result column="language" property="language" jdbcType="VARCHAR" />
+    <result column="duration" property="duration" jdbcType="VARCHAR" />
+    <result column="releasedate" property="releasedate" jdbcType="TIMESTAMP" />
+    <result column="bigType" property="bigtype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, filmname, type, introduction, screenings, studio, remark, pic_src, area, year, 
+    score, language, duration, releasedate, bigType
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pure.db.TFilmExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_film
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_film
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_film
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pure.db.TFilmExample" >
+    delete from t_film
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pure.db.TFilm" >
+    insert into t_film (id, filmname, type, 
+      introduction, screenings, studio, 
+      remark, pic_src, area, 
+      year, score, language, 
+      duration, releasedate, bigType
+      )
+    values (#{id,jdbcType=INTEGER}, #{filmname,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{introduction,jdbcType=VARCHAR}, #{screenings,jdbcType=VARCHAR}, #{studio,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{picSrc,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{year,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, 
+      #{duration,jdbcType=VARCHAR}, #{releasedate,jdbcType=TIMESTAMP}, #{bigtype,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pure.db.TFilm" >
+    insert into t_film
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="filmname != null" >
+        filmname,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="screenings != null" >
+        screenings,
+      </if>
+      <if test="studio != null" >
+        studio,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="picSrc != null" >
+        pic_src,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="language != null" >
+        language,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+      <if test="releasedate != null" >
+        releasedate,
+      </if>
+      <if test="bigtype != null" >
+        bigType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="filmname != null" >
+        #{filmname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="screenings != null" >
+        #{screenings,jdbcType=VARCHAR},
+      </if>
+      <if test="studio != null" >
+        #{studio,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="picSrc != null" >
+        #{picSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=VARCHAR},
+      </if>
+      <if test="releasedate != null" >
+        #{releasedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bigtype != null" >
+        #{bigtype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pure.db.TFilmExample" resultType="java.lang.Integer" >
+    select count(*) from t_film
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_film
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.filmname != null" >
+        filmname = #{record.filmname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.screenings != null" >
+        screenings = #{record.screenings,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studio != null" >
+        studio = #{record.studio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.picSrc != null" >
+        pic_src = #{record.picSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.year != null" >
+        year = #{record.year,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=VARCHAR},
+      </if>
+      <if test="record.language != null" >
+        language = #{record.language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duration != null" >
+        duration = #{record.duration,jdbcType=VARCHAR},
+      </if>
+      <if test="record.releasedate != null" >
+        releasedate = #{record.releasedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bigtype != null" >
+        bigType = #{record.bigtype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_film
+    set id = #{record.id,jdbcType=INTEGER},
+      filmname = #{record.filmname,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      introduction = #{record.introduction,jdbcType=VARCHAR},
+      screenings = #{record.screenings,jdbcType=VARCHAR},
+      studio = #{record.studio,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      pic_src = #{record.picSrc,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      year = #{record.year,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=VARCHAR},
+      language = #{record.language,jdbcType=VARCHAR},
+      duration = #{record.duration,jdbcType=VARCHAR},
+      releasedate = #{record.releasedate,jdbcType=TIMESTAMP},
+      bigType = #{record.bigtype,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pure.db.TFilm" >
+    update t_film
+    <set >
+      <if test="filmname != null" >
+        filmname = #{filmname,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="screenings != null" >
+        screenings = #{screenings,jdbcType=VARCHAR},
+      </if>
+      <if test="studio != null" >
+        studio = #{studio,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="picSrc != null" >
+        pic_src = #{picSrc,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        duration = #{duration,jdbcType=VARCHAR},
+      </if>
+      <if test="releasedate != null" >
+        releasedate = #{releasedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bigtype != null" >
+        bigType = #{bigtype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pure.db.TFilm" >
+    update t_film
+    set filmname = #{filmname,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      screenings = #{screenings,jdbcType=VARCHAR},
+      studio = #{studio,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      pic_src = #{picSrc,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      score = #{score,jdbcType=VARCHAR},
+      language = #{language,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=VARCHAR},
+      releasedate = #{releasedate,jdbcType=TIMESTAMP},
+      bigType = #{bigtype,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getFilmPageInfo" parameterType="map" resultMap="BaseResultMap">
+		select * from t_film where 1=1
+		<if test="filmname != null">
+			and filmname like #{filmname}
+		</if>
+
+		<if test="type != null">
+			and type = #{type}
+		</if>
+
+		<if test="area != null">
+			and area = #{area}
+		</if>
+
+		<if test="year != null">
+			and year = #{year}
+		</if>
+		limit #{start},#{end}
+	</select>
+
+	<select id="countByParam" parameterType="map" resultType="int">
+		select count(*) from t_film where 1=1  
+		<if test="filmname != null">
+			  and filmname like #{filmname}
+		</if>
+
+		<if test="type != null">
+			  and type = #{type}
+		</if>
+
+		<if test="area != null">
+			 and area = #{area}
+		</if>
+
+		<if test="year != null">
+			 and year = #{year}
+		</if>
+	</select>
+	
+	<select id="getHotFilm"  resultType="map">
+	  select *  from t_film where   bigType = '热播影片'
+	</select>
+</mapper>

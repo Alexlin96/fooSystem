@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pure.dao.TStarMapper" >
+  <resultMap id="BaseResultMap" type="com.pure.db.TStar" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="filmid" property="filmid" jdbcType="INTEGER" />
+    <result column="star" property="star" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, userid, filmid, star
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pure.db.TStarExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_star
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_star
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_star
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pure.db.TStarExample" >
+    delete from t_star
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pure.db.TStar" >
+    insert into t_star (id, userid, filmid, 
+      star)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{filmid,jdbcType=INTEGER}, 
+      #{star,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pure.db.TStar" >
+    insert into t_star
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="filmid != null" >
+        filmid,
+      </if>
+      <if test="star != null" >
+        star,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="filmid != null" >
+        #{filmid,jdbcType=INTEGER},
+      </if>
+      <if test="star != null" >
+        #{star,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pure.db.TStarExample" resultType="java.lang.Integer" >
+    select count(*) from t_star
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_star
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.filmid != null" >
+        filmid = #{record.filmid,jdbcType=INTEGER},
+      </if>
+      <if test="record.star != null" >
+        star = #{record.star,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_star
+    set id = #{record.id,jdbcType=INTEGER},
+      userid = #{record.userid,jdbcType=INTEGER},
+      filmid = #{record.filmid,jdbcType=INTEGER},
+      star = #{record.star,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pure.db.TStar" >
+    update t_star
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="filmid != null" >
+        filmid = #{filmid,jdbcType=INTEGER},
+      </if>
+      <if test="star != null" >
+        star = #{star,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pure.db.TStar" >
+    update t_star
+    set userid = #{userid,jdbcType=INTEGER},
+      filmid = #{filmid,jdbcType=INTEGER},
+      star = #{star,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

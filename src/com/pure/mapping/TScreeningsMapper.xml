@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pure.dao.TScreeningsMapper">
+	<resultMap id="BaseResultMap" type="com.pure.db.TScreenings">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="filmid" property="filmid" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="play_time" property="playTime" jdbcType="TIMESTAMP" />
+		<result column="auditiorid" property="auditiorid" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, filmid, type, price, remark, play_time, auditiorid
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.pure.db.TScreeningsExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_screenings
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from t_screenings
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		t_screenings
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.pure.db.TScreeningsExample">
+		delete from t_screenings
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.pure.db.TScreenings">
+		insert into t_screenings (id,
+		filmid, type,
+		price, remark, play_time,
+		auditiorid)
+		values
+		(#{id,jdbcType=INTEGER}, #{filmid,jdbcType=INTEGER},
+		#{type,jdbcType=VARCHAR},
+		#{price,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{playTime,jdbcType=TIMESTAMP},
+		#{auditiorid,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.pure.db.TScreenings">
+		insert into t_screenings
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="filmid != null">
+				filmid,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="playTime != null">
+				play_time,
+			</if>
+			<if test="auditiorid != null">
+				auditiorid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="filmid != null">
+				#{filmid,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="playTime != null">
+				#{playTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="auditiorid != null">
+				#{auditiorid,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.pure.db.TScreeningsExample"
+		resultType="java.lang.Integer">
+		select count(*) from t_screenings
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update t_screenings
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.filmid != null">
+				filmid = #{record.filmid,jdbcType=INTEGER},
+			</if>
+			<if test="record.type != null">
+				type = #{record.type,jdbcType=VARCHAR},
+			</if>
+			<if test="record.price != null">
+				price = #{record.price,jdbcType=VARCHAR},
+			</if>
+			<if test="record.remark != null">
+				remark = #{record.remark,jdbcType=VARCHAR},
+			</if>
+			<if test="record.playTime != null">
+				play_time = #{record.playTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.auditiorid != null">
+				auditiorid = #{record.auditiorid,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update t_screenings
+		set id = #{record.id,jdbcType=INTEGER},
+		filmid =
+		#{record.filmid,jdbcType=INTEGER},
+		type =
+		#{record.type,jdbcType=VARCHAR},
+		price =
+		#{record.price,jdbcType=VARCHAR},
+		remark =
+		#{record.remark,jdbcType=VARCHAR},
+		play_time =
+		#{record.playTime,jdbcType=TIMESTAMP},
+		auditiorid =
+		#{record.auditiorid,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.pure.db.TScreenings">
+		update t_screenings
+		<set>
+			<if test="filmid != null">
+				filmid = #{filmid,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="playTime != null">
+				play_time = #{playTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="auditiorid != null">
+				auditiorid = #{auditiorid,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.pure.db.TScreenings">
+		update
+		t_screenings
+		set filmid = #{filmid,jdbcType=INTEGER},
+		type =
+		#{type,jdbcType=VARCHAR},
+		price = #{price,jdbcType=VARCHAR},
+		remark =
+		#{remark,jdbcType=VARCHAR},
+		play_time = #{playTime,jdbcType=TIMESTAMP},
+		auditiorid = #{auditiorid,jdbcType=INTEGER}
+		where id =
+		#{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="getTicketPageInfo" parameterType="map" resultType="map">
+		SELECT
+		t1.id,
+		t1.filmid,
+		t1.type,
+		t1.price,
+		t1.remark,
+		t1.play_time,
+		t1.auditiorid,
+		t2.filmname,
+		t2.type,
+		t2.introduction,
+		t2.screenings,
+		t2.studio,
+		t2.remark,
+		t2.pic_src,
+		t2.area,
+		t2.`year`,
+		t2.score,
+		t2.`language`,
+		t2.duration,
+		t2.releasedate,
+		t2.bigType,
+		t3.`name`,
+		t3.max,
+		t3.number,
+		t3.remark
+		from t_screenings t1,t_film t2,t_auditorium t3
+		where 1=1
+		and t1.filmid=t2.id
+		and
+		t1.auditiorid=t3.id
+		<if test="filmname != null">
+			and filmname like #{filmname}
+		</if>
+		<if test="filmId != null">
+			and filmid = #{filmId}
+		</if>
+		limit #{start},#{end}
+	</select>
+
+	<select id="countByParam" parameterType="map" resultType="int">
+		select count(*) 
+		
+		from t_screenings t1,t_film t2,t_auditorium t3
+		where 1=1
+		and t1.filmid=t2.id
+		and
+		t1.auditiorid=t3.id
+		<if test="filmname != null">
+			and filmname like #{filmname}
+		</if>
+		<if test="filmId != null">
+			and filmid = #{filmId}
+		</if>
+	</select>
+	
+	<select id="selectMaxId"  resultType="int">
+	   select max(id) from t_screenings
+	</select>
+</mapper>
